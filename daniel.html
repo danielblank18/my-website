@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Daniel's Squirrel Universe 🐿️</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET בסיסי ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Rubik", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background-image: url("israeliFlag.jpg");       /* דגל ישראל ברקע */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #111827;
+    }
+
+    /* שכבת "שקף" מעל הרקע */
+    .overlay {
+      min-height: 100vh;
+      background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.92),
+        rgba(219, 234, 254, 0.95));
+      backdrop-filter: blur(4px);
+    }
+
+    /* ===== מבנה כללי ===== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: linear-gradient(90deg, #1d4ed8, #3b82f6);
+      color: white;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.35);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .logo-sub {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 14px;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-size: 0.9rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.1);
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      background: white;
+      color: #1d4ed8;
+      transform: translateY(-1px);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 16px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    section {
+      background: white;
+      border-radius: 18px;
+      padding: 24px 20px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.16);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.12), transparent 60%);
+      top: -60px;
+      left: -40px;
+      pointer-events: none;
+    }
+
+    section::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 70% 70%, rgba(96, 165, 250, 0.12), transparent 70%);
+      bottom: -80px;
+      right: -70px;
+      pointer-events: none;
+    }
+
+    section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1, h2, h3 {
+      color: #111827;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+
+    p {
+      line-height: 1.6;
+      margin-bottom: 10px;
+      font-size: 0.98rem;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: #1f2937;
+      opacity: 0.9;
+    }
+
+    .label-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: rgba(59, 130, 246, 0.08);
+      color: #1d4ed8;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      margin-bottom: 10px;
+    }
+
+    /* ===== HERO + כפתורים ===== */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+      color: white;
+      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(37, 99, 235, 0.5);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.9);
+      color: #1f2937;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+    }
+
+    .btn-ghost:hover {
+      background: #eff6ff;
+      transform: translateY(-1px);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      background: rgba(22, 163, 74, 0.08);
+      color: #15803d;
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid rgba(22, 163, 74, 0.4);
+      margin-top: 4px;
+    }
+
+    .hero-badge span {
+      font-weight: 600;
+    }
+
+    .hero-emoji {
+      font-size: 1.1rem;
+    }
+
+    .hero-card {
+      position: relative;
+      background: radial-gradient(circle at 20% 20%, #eff6ff, #dbeafe);
+      border-radius: 20px;
+      padding: 18px 18px 20px;
+      box-shadow: 0 16px 35px rgba(30, 64, 175, 0.5);
+      overflow: hidden;
+      color: #111827;
+    }
+
+    .hero-card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .hero-card-title span {
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    .squirrel-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #f97316, #b45309);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      margin: 0 auto 10px;
+      animation: floaty 3s ease-in-out infinite;
+      box-shadow: 0 14px 30px rgba(180, 83, 9, 0.7);
+    }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .hero-card-text {
+      font-size: 0.85rem;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .hero-card-tag-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+      font-size: 0.75rem;
+    }
+
+    .hero-tag {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px dashed rgba(15, 23, 42, 0.25);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ===== כרטיסים כלליים ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .card {
+      background: #f9fafb;
+      border-radius: 14px;
+      padding: 12px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px) rotate(-0.4deg);
+      background: #eff6ff;
+      box-shadow: 0 14px 26px rgba(15, 23, 42, 0.18);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 0.86rem;
+      margin-bottom: 4px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 0.72rem;
+    }
+
+    .chip {
+      background: rgba(191, 219, 254, 0.9);
+      border-radius: 999px;
+      padding: 2px 7px;
+      border: 1px solid rgba(59, 130, 246, 0.5);
+    }
+
+    /* ===== אזור עובדות ו"עכברי" סנאים ===== */
+    .facts-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .facts-text {
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .fact-box {
+      background: #f1f5f9;
+      border-radius: 14px;
+      padding: 10px 11px;
+      font-size: 0.86rem;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      margin-bottom: 8px;
+    }
+
+    .fact-box strong {
+      color: #1d4ed8;
+    }
+
+    .random-fact-box {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 12px;
+      background: #eff6ff;
+      border: 1px dashed rgba(37, 99, 235, 0.7);
+      font-size: 0.9rem;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* ===== קוויז ===== */
+    .quiz-container {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .quiz-question {
+      font-size: 0.92rem;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+    }
+
+    .quiz-result {
+      margin-top: 10px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    input[type="radio"] {
+      cursor: pointer;
+    }
+
+    /* ===== באנר "ריצה" של סנאים ===== */
+    .ticker {
+      margin-top: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #1d4ed8, #3b82f6);
+      color: white;
+      overflow: hidden;
+      position: relative;
+      height: 28px;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker-content {
+      position: absolute;
+      white-space: nowrap;
+      animation: ticker-move 16s linear infinite;
+      font-size: 0.85rem;
+    }
+
+    @keyframes ticker-move {
+      0%   { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* ===== "גשם" של אגוזים ===== */
+    .acorn {
+      position: fixed;
+      font-size: 1.4rem;
+      pointer-events: none;
+      animation: fall 2.4s linear forwards;
+      z-index: 200;
+    }
+
+    @keyframes fall {
+      0%   { transform: translateY(-40px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(105vh) rotate(120deg); opacity: 0; }
+    }
+
+    /* ===== גלריית "כרטיסי סנאים" ===== */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .squirrel-card {
+      border-radius: 16px;
+      padding: 10px;
+      background: radial-gradient(circle at 10% 10%, #fef3c7, #fed7aa);
+      box-shadow: 0 10px 20px rgba(180, 83, 9, 0.3);
+      text-align: center;
+      font-size: 0.86rem;
+      border: 1px solid rgba(248, 250, 252, 0.9);
+      transform-origin: center;
+      transition: transform 0.15s ease;
+    }
+
+    .squirrel-card:hover {
+      transform: translateY(-4px) rotate(2deg) scale(1.03);
+    }
+
+    .squirrel-emoji {
+      font-size: 2.1rem;
+      margin-bottom: 4px;
+    }
+
+    .squirrel-name {
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 18px 16px;
+      text-align: center;
+      font-size: 0.86rem;
+      border-top: 2px solid #1d4ed8;
+    }
+
+    footer a {
+      color: #93c5fd;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== כפתור "למעלה" ===== */
+    .to-top {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      z-index: 250;
+      border-radius: 999px;
+      border: none;
+      background: rgba(15, 23, 42, 0.9);
+      color: white;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s;
+    }
+
+    .to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-card {
+        order: -1;
+      }
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .facts-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav ul {
+        justify-content: flex-start;
+      }
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .gallery-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="overlay">
+    <!-- ===== HEADER / NAV ===== -->
+    <header>
+      <div class="header-inner">
+        <div class="logo">
+          <div class="logo-title">Daniel's Squirrel Universe 🐿️</div>
+          <div class="logo-sub">האתר הרשמי הכי מטורף על סנאים ביקום הידוע</div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#home">בית</a></li>
+            <li><a href="#about">היכרות עם סנאים</a></li>
+            <li><a href="#anatomy">גוף ויכולות</a></li>
+            <li><a href="#behavior">התנהגות יומית</a></li>
+            <li><a href="#gallery">גלריה</a></li>
+            <li><a href="#quiz">קוויז</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- ===== HERO (עמוד 1) ===== -->
+      <section id="home">
+        <div class="hero">
+          <div class="hero-main">
+            <span class="label-pill">🐿️ דניאל מציג: סנאים, אבל בהגזמה</span>
+            <h1>ברוכים הבאים לעולם הסנאים</h1>
+            <p class="tagline">
+              זה לא עוד אתר. זה <strong>קורס מואץ</strong> על סנאים – מי הם, איך הם רצים על
+              עצים כאילו אין כוח משיכה, ואיך הם זוכרים איפה הסתירו אגוזים.
+            </p>
+            <p class="tagline">
+              נלמד על <strong>מדע, אנטומיה, התנהגות,סנאים במכנס! זיכרון, שינה</strong> ואפילו נעשה
+              <em>קוויז</em>. ואם תשעמם אותך שורה אחת – תמלא פיך באגוזים ותתמודד.
+            </p>
+
+            <div class="hero-buttons">
+              <a href="#about" class="btn btn-primary">
+                התחל את המסע 🧠
+              </a>
+            <div class="hero-badge">
+              <span>Fun fact:</span>
+              <span class="hero-emoji">🐿️</span>
+              <span>סנאים שייכים למשפחת המכרסמים (Sciuridae) – כמו חולדות, אבל עם יח"צ הרבה יותר טוב.</span>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="hero-card-title">
+              <span>סנאי הדגמה</span>
+              <span>מודל: Daniel v1.0</span>
+            </div>
+            <div class="squirrel-circle">🐿️</div>
+            <div class="hero-card-text">
+              סנאים הם מכרסמים שחיים ביערות, פארקים, חצרות ואיפה שאתה משאיר אוכל. הם מומחים
+              בטיפוס, בקפיצה, ובלאגור אגוזים לימים קשים.
+            </div>
+            <div class="hero-card-tag-row">
+              <div class="hero-tag">מהירות: עד ~32 קמ"ש</div>
+              <div class="hero-tag">קפיצה: עד פי 10 מאורך הגוף</div>
+              <div class="hero-tag">זיכרון אגוזים: לא רע בכלל</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ABOUT SQUIRRELS (עמוד 2) ===== -->
+      <section id="about">
+        <h2>מה זה בכלל סנאי?</h2>
+        <p>
+          סנאים הם קבוצה של יונקים ממשפחת <strong>Sciuridae</strong>. הם מכרסמים – כמו עכברים וחולדות –
+          אבל מתמחים בחיים על עצים. אפשר למצוא סנאים באירופה, אסיה, אמריקה ואפילו בערים גדולות במרכז העיר.
+        </p>
+        <p>
+          רוב הסנאים שאנחנו מכירים הם סנאים עצים: קטנים, זריזים, עם זנב ענק ושעיר שעוזר להם לשמור על שיווי משקל
+          ולקפוץ בין ענפים. יש גם סנאים קרקעיים שחיים בחורים באדמה, ואפילו סנאים מרחפים שיכולים "לדאות" מעץ לעץ בעזרת קרום עור.
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>אנטומיה בסיסית</h3>
+            <p>גוף קל משקל, זנב ארוך, טפרים חדים לטיפוס, ושיניים קדמיות שגדלות כל החיים.</p>
+            <div class="chip-row">
+              <div class="chip">שיניים חזקות</div>
+              <div class="chip">טפרים לטיפוס</div>
+              <div class="chip">זנב לאיזון</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>תזונה</h3>
+            <p>הם אוכלים אגוזים, זרעים, פירות, לפעמים חרקים וביצים – תלוי במין ובאזור.</p>
+            <div class="chip-row">
+              <div class="chip">אגוזים</div>
+              <div class="chip">זרעים</div>
+              <div class="chip">פירות</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>בתי גידול</h3>
+            <p>יערות, פארקים, גינות ציבוריות ובתים של אנשים שלא סוגרים את הפח טוב.</p>
+            <div class="chip-row">
+              <div class="chip">יערות</div>
+              <div class="chip">עיר</div>
+              <div class="chip">כפר</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ticker">
+          <div class="ticker-content">
+            🐿️ breaking: סנאים מכחישים שהם שוכחים איפה שמו חצי מהאגוזים | 🐿️ מומחים: "זה חלק מאסטרטגיית שתילה מחדש של עצים" | 🐿️ דניאל: "אני רק ניסיתי לבנות אתר..."
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ANATOMY & SUPERPOWERS (עמוד 3) ===== -->
+      <section id="anatomy">
+        <h2>גוף ויכולות – למה סנאים נראים כמו נינג'ות קטנות</h2>
+
+        <div class="facts-layout">
+          <div class="facts-text">
+            <p>
+              לסנאים יש גוף שתוכנן מבחינת אבולוציה ל<strong>טיפוס וקפיצה</strong>. השלד שלהם קל,
+              השרירים ברגליים האחוריות חזקים מאוד, והזנב עובד כמו הגה או מצנח קטן.
+            </p>
+            <p>
+              הם יכולים לקפוץ מרחקים שמגיעים לפי 10 מאורך הגוף שלהם, להסתובב תוך כדי
+              באוויר ולנחות על ענף דק בלי ליפול. הטפרים החדים שלהם מתפקדים כמו מסמרים
+              קטנים שננעצים בקליפת העץ.
+            </p>
+
+            <div class="fact-box">
+              <strong>👀 ראייה:</strong> לסנאים ראייה טובה במיוחד בצדדים –
+              הם חייבים לראות טורפים בזמן שהם עסוקים באגוז.
+            </div>
+            <div class="fact-box">
+              <strong>🧠 מוח וזיכרון:</strong> סנאים לא זוכרים כל אגוז בנפרד,
+              אבל משתמשים ברמזים סביבתיים (ריח, מיקום) כדי למצוא את מה שהחביאו.
+            </div>
+            <div class="fact-box">
+              <strong>🌡️ שרידות בחורף:</strong> חלק מהמינים אוגרים שומן ומתכוננים
+              לתקופות קרות; אחרים אוגרים כמויות מטורפות של מזון.
+            </div>
+
+            <button class="btn btn-primary" id="randomFactBtn">
+              תן לי עובדה רנדומלית על סנאים 🎲
+            </button>
+            <div class="random-fact-box" id="randomFactBox">
+              לחץ על הכפתור כדי לקבל עובדה מרתקת על סנאים.
+            </div>
+          </div>
+
+          <div>
+            <h3>שלושת כוחות־העל של סנאי ממוצע</h3>
+            <ul style="padding-right: 18px; font-size: 0.92rem; line-height: 1.7;">
+              <li><strong>קפיצה:</strong> מרחקים גדולים יחסית לגודל הגוף, עם שליטה באוויר.</li>
+              <li><strong>טיפוס:</strong> טפרים חזקים מאפשרים טיפוס כמעט אנכי על קליפת עץ.</li>
+              <li><strong>איזון:</strong> הזנב כמו מוט של לוליין – מייצב בזמן ריצה, קפיצה ונחיתה.</li>
+            </ul>
+
+            <h3 style="margin-top: 14px;">איך סנאים עוזרים ליערות?</h3>
+            <p style="font-size: 0.9rem;">
+              כשהם קוברים אגוזים ושוכחים חלק מהם, האגוזים האלה יכולים לנבוט ולהפוך לעצים חדשים.
+              כלומר – חוץ מזה שהם חמודים, הם גם <strong>גנני־על של הטבע</strong>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== BEHAVIOR & DAY ROUTINE (עמוד 4) ===== -->
+      <section id="behavior">
+        <h2>יומנו של סנאי – מה הוא עושה כל היום?</h2>
+
+        <p>
+          סנאי טיפוסי קם בבוקר (כן, פחות או יותר "אדם של בוקר"), יוצא לחפש אוכל,
+          מתחמק מטורפים, משחק עם סנאים אחרים, ועסוק כל הזמן בשאלה:
+          <strong>"איפה שמתי את האגוז הזה?"</strong>
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>בוקר 🌅</h3>
+            <p>חיפוש אוכל כשהטורפים פחות פעילים – זרעים, אגוזים, בלוטים, פירות.</p>
+            <div class="chip-row">
+              <div class="chip">מברר מזון</div>
+              <div class="chip">בודק טריטוריה</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>צהריים 🌞</h3>
+            <p>מנוחה בצל, ניקוי פרווה, משחקים עם סנאים אחרים וריבים קטנים על אגוזים.</p>
+            <div class="chip-row">
+              <div class="chip">חברה</div>
+              <div class="chip">הגנה על מרחב</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>ערב 🌙</h3>
+            <p>חזרה לקן – בדרך כלל בקן על העץ או בחור שהוא בנה – ואז שינה.</p>
+            <div class="chip-row">
+              <div class="chip">קן חמים</div>
+              <div class="chip">שינה</div>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top: 12px;">
+          מבחינת מדעית, אפשר לחשוב על התנהגות הסנאי כמו <strong>אלגוריתם</strong>:
+          הוא מנסה למצוא מזון, למזער סיכון מטורפים, ולמקסם את כמות האגוזים שתהיה לו לחורף.
+          זה מזכיר קצת אלגוריתמים בלמידת מכונה שמנסים למקסם פונקציית מטרה.
+        </p>
+      </section>
+
+      <!-- ===== GALLERY (עמוד 5) ===== -->
+      <section id="gallery">
+        <h2>גלריית דמויות – סנאים מהיקום של דניאל</h2>
+        <p>
+          אין פה תמונות אמיתיות, אלא דמויות סנאים כתובות. כל "כרטיס" מתאר טיפוס אחר של סנאי,
+          כדי שתוכל לדמיין אותם או ליצור תמונות ב-AI אחר כך.
+        </p>
+
+        <div class="gallery-grid">
+          <div class="squirrel-card">
+            <div class="squirrel-emoji">🐿️</div>
+            <div class="squirrel-name">סקוילי, המדען</div>
+            <div>סנאי שחוקר כמה אגוזים הוא צריך לקבור כדי לשרוד את החורף עם מקדם ביטחון.</div>
+          </div>
+          <div class="squirrel-card">
+            <div class="squirrel-emoji">🐿️</div>
+            <div class="squirrel-name">נוגי, האקר האגוזים</div>
+            <div>מוצא דרך להגיע למזינים של ציפורים שאמורים להיות "מ-proof לסנאים".</div>
+          </div>
+          <div class="squirrel-card">
+            <div class="squirrel-emoji">🐿️</div>
+            <div class="squirrel-name">דש-דש, הרץ</div>
+            <div>מסוגל לעבור בין 5 עצים לפני שאתה מספיק לצלם סטורי.</div>
+          </div>
+          <div class="squirrel-card">
+            <div class="squirrel-emoji">🐿️</div>
+            <div class="squirrel-name">פרופ' אגוזי</div>
+            <div>מסביר לסטודנטים למה לשכוח אגוזים זו בעצם אסטרטגיה אקולוגית חכמה.</div>
+          </div>
+          <div class="squirrel-card">
+            <div class="squirrel-emoji">🐿️</div>
+            <div class="squirrel-name">שוגי, הכריזמטי</div>
+            <div>מופיע בפארקים עירוניים, מצטלם עם ילדים, ושואל "יש לך עוד בוטן?".</div>
+          </div>
+          <div class="squirrel-card">
+            <div class="squirrel-emoji">🐿️</div>
+            <div class="squirrel-name">מר מרחף</div>
+            <div>סנאי מרחף שיכול לדאות מעץ לעץ ולהבהיל חתולים מלמעלה.</div>
+          </div>
+          <div class="squirrel-card">
+            <div class="squirrel-emoji">🐿️</div>
+            <div class="squirrel-name">סניור פיסטוק</div>
+            <div>מעדיף פיסטוקים על אגוזים רגילים, וטוען שזה יותר גורמה.</div>
+          </div>
+          <div class="squirrel-card">
+            <div class="squirrel-emoji">🐿️</div>
+            <div class="squirrel-name">טק-סנאי</div>
+            <div>חי על אנטנות סלולריות, בודק קליטה ומפריע לטכנאים.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== QUIZ (עמוד 6) ===== -->
+      <section id="quiz">
+        <h2>קוויז סנאים – כמה למדת?</h2>
+        <p>
+          תענה על השאלות, תלחץ על "בדיקה", ותראה אם אתה ברמת "חובב אגוזים" או "פרופסור לסנאים".
+        </p>
+
+        <div class="quiz-container">
+          <!-- Q1 -->
+          <div>
+            <div class="quiz-question">1. לאיזו משפחה מבחינה מדעית שייכים הסנאים?</div>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="a">
+              Felidae
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="b">
+              Sciuridae
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q1" value="c">
+              Canidae
+            </label>
+          </div>
+
+          <!-- Q2 -->
+          <div>
+            <div class="quiz-question">2. למה הזנב הגדול של הסנאי כל כך חשוב?</div>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="a">
+              זה רק לקישוט, נטו סטייל.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="b">
+              עוזר באיזון, קפיצה וחימום הגוף.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q2" value="c">
+              כדי להבריח ציפורים מהספסל.
+            </label>
+          </div>
+
+          <!-- Q3 -->
+          <div>
+            <div class="quiz-question">3. איך סנאים עוזרים ליערות?</div>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="a">
+              הם אוכלים את כל העצים.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="b">
+              הם קוברים אגוזים, שיכולים לנבוט לעצים חדשים.
+            </label>
+            <label class="quiz-option">
+              <input type="radio" name="q3" value="c">
+              הם משקים את העצים עם בקבוקי מים.
+            </label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="checkQuizBtn" style="margin-top: 12px;">
+          בדוק תשובות ✅
+        </button>
+        <div class="quiz-result" id="quizResult"></div>
+      </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+      נבנה באהבה על ידי דניאל בלנק 🐿️ | צרו קשר:
+      <a href="mailto:danielblank18@gmail.com">danielblank18@gmail.com</a>
+    </footer>
+
+    <!-- כפתור חזרה לראש העמוד -->
+    <button class="to-top" id="toTopBtn">⬆ למעלה</button>
+  </div>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // === גשם אגוזים ===
+    const rainBtn = document.getElementById("rainAcornsBtn");
+
+    function createAcorn() {
+      const acorn = document.createElement("div");
+      acorn.className = "acorn";
+      acorn.textContent = "🌰";
+
+      // מיקום התחלה רנדומלי
+      const startX = Math.random() * window.innerWidth;
+      acorn.style.left = startX + "px";
+
+      document.body.appendChild(acorn);
+
+      // מחיקת האגוז אחרי האנימציה
+      setTimeout(() => {
+        acorn.remove();
+      }, 2600);
+    }
+
+    if (rainBtn) {
+      rainBtn.addEventListener("click", () => {
+        // "סערת אגוזים" קטנה
+        for (let i = 0; i < 30; i++) {
+          setTimeout(createAcorn, i * 60);
+        }
+      });
+    }
+
+    // === עובדה רנדומלית על סנאים ===
+    const facts = [
+      "סנאים לא זוכרים כל אגוז בנפרד – הם משתמשים ברמזים סביבתיים כדי למצוא את מה שהחביאו.",
+      "חלק מהסנאים יכולים לדאות באוויר בעזרת קרום עור בין הידיים לרגליים.",
+      "סנאים עוזרים ליערות לצמוח מחדש כשהם שוכחים איפה קברו חלק מהאגוזים.",
+      "לסנאים יש שיניים קדמיות שגדלות כל החיים, ולכן הם חייבים לכרסם כל הזמן.",
+      "יש מעל 200 מינים שונים של סנאים בעולם.",
+      "סנאים יכולים להסתובב כמעט 180 מעלות בקרסול, כדי לטפס גם כלפי מטה על גזע העץ.",
+      "בסביבה עירונית, סנאים לומדים מהר מאיפה בא האוכל – בני אדם בפארק הם 'מודל עסקי' מעולה."
+    ];
+
+    const randomFactBtn = document.getElementById("randomFactBtn");
+    const randomFactBox = document.getElementById("randomFactBox");
+
+    if (randomFactBtn && randomFactBox) {
+      randomFactBtn.addEventListener("click", () => {
+        const idx = Math.floor(Math.random() * facts.length);
+        randomFactBox.textContent = facts[idx];
+      });
+    }
+
+    // === קוויז ===
+    const quizBtn = document.getElementById("checkQuizBtn");
+    const quizResult = document.getElementById("quizResult");
+
+    if (quizBtn && quizResult) {
+      quizBtn.addEventListener("click", () => {
+        const answers = {
+          q1: "b",
+          q2: "b",
+          q3: "b"
+        };
+
+        let score = 0;
+        let total = 0;
+
+        for (const q in answers) {
+          total++;
+          const selected = document.querySelector(`input[name="${q}"]:checked`);
+          if (selected && selected.value === answers[q]) {
+            score++;
+          }
+        }
+
+        if (score === total) {
+          quizResult.textContent = "🎉 מושלם! אתה ברמת 'פרופסור לסנאים'.";
+          quizResult.style.color = "#16a34a";
+        } else if (score === 0) {
+          quizResult.textContent = "🤔 נראה שעוד לא התחברת לסנאים. נסה לקרוא שוב את העמודים.";
+          quizResult.style.color = "#b91c1c";
+        } else {
+          quizResult.textContent = `👍 תשובות נכונות: ${score} מתוך ${total}. אתה בדרך להיות מומחה אגוזים.`;
+          quizResult.style.color = "#1d4ed8";
+        }
+      });
+    }
+
+    // === כפתור חזרה למעלה ===
+    const toTopBtn = document.getElementById("toTopBtn");
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        toTopBtn.classList.add("visible");
+      } else {
+        toTopBtn.classList.remove("visible");
+      }
+    });
+
+    toTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
+  <script>
+function rainNuts() {
+  for (let i = 0; i < 25; i++) {
+    let nut = document.createElement("img");
+    nut.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Emoji_u1f330.svg/64px-Emoji_u1f330.svg.png";
+    nut.style.position = "fixed";
+    nut.style.left = Math.random() * window.innerWidth + "px";
+    nut.style.top = "-50px";
+    nut.style.width = "40px";
+    nut.style.zIndex = 9999;
+    nut.style.transition = "top 2s linear";
+    document.body.appendChild(nut);
+
+    setTimeout(() => {
+      nut.style.top = window.innerHeight + "px";
+    }, 50);
+
+    setTimeout(() => {
+      nut.remove();
+    }, 2100);
+  }
+}
+</script>
+
+</body>
+</html>
